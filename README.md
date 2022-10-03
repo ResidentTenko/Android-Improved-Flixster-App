@@ -1,6 +1,6 @@
 # Android Project 4 - *Top Rated Movies*
 
-Submitted by: **Your Name Here**
+Submitted by: **Fidel Ojimba**
 
 **Top Rated Movies** is a movie browsing app that allows users to browse the highest rated movies of all time.
 
