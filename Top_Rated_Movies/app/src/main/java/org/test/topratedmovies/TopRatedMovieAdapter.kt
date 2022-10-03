@@ -38,8 +38,9 @@ class TopRatedMovieAdapter (private val context: Context, private val movies: Li
         // create our variables and link to the xml file
         private val posterView = itemView.findViewById<ImageView>(R.id.moviePoster)
         private val titleTextView = itemView.findViewById<TextView>(R.id.movieTitle)
-        private val overviewTextView = itemView.findViewById<TextView>(R.id.movieOverview)
         private val dateTextView = itemView.findViewById<TextView>(R.id.movieDate)
+        private val overviewTextView = itemView.findViewById<TextView>(R.id.movieOverview)
+
 
         // assign an onclick listener to the view
         init {
@@ -50,8 +51,9 @@ class TopRatedMovieAdapter (private val context: Context, private val movies: Li
         fun bind(movie: Movie) {
             // dig down into the data model and assign values to the views using dot properties
             titleTextView.text = movie.original_title
-            overviewTextView.text = movie.overview
             dateTextView.text = movie.release_date
+            overviewTextView.text = movie.overview
+
 
             // load the image view of the recycler view with the movie poster url
             Glide.with(context)
@@ -59,8 +61,22 @@ class TopRatedMovieAdapter (private val context: Context, private val movies: Li
                 .into(posterView)
         }
 
+        /**
+         *We can create an Intent, using the current context,
+         * and the Class that we are navigating to.
+         * We can use .putExtra to pass along the article,
+         * with the first argument being the key for the data, and the next being article itself.
+         * We can then call startActivity with the current context,
+         * using the intent as its parameter.
+         */
+
         override fun onClick(v: View?) {
-            TODO("Not yet implemented")
+            // Get selected movie position
+            val movie = movies[absoluteAdapterPosition]
+            //  Navigate to Details screen and pass selected movie to the details screen
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_EXTRA, movie)
+            context.startActivity(intent)
         }
 
     }
