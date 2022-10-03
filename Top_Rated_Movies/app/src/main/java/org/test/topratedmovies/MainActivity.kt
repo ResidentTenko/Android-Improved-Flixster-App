@@ -13,7 +13,6 @@ import kotlinx.serialization.json.Json
 import okhttp3.Headers
 import org.json.JSONException
 
-
 /**
  * Project Steps:
  * 1. Async and grab the JSON values
@@ -22,7 +21,6 @@ import org.json.JSONException
  * 4. Feed that value into the adapter -
  * 5. The OnBind view holder populates the (View) XML fields with the data model values
  */
-
 
 fun createJson() = Json {
     isLenient = true
@@ -97,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                     /**
                      * How does this work?
                      * we need to dig into our model using dot notation to get the movies:
-                     * we'll take each movie and add it to our articles mutable list.
+                     * we'll take each movie and add it to our movies mutable list.
                      */
                     parsedJson.results?.let { list -> movies.addAll(list) }
                     // Reload the screen

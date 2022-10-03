@@ -37,9 +37,6 @@ data class Movie(
     // traditional Kotlin String data type
     @SerialName("original_title")
     val original_title: String?,
-    // traditional Kotlin Int data type
-    @SerialName("popularity")
-    val popularity: Double?,
     // traditional Kotlin String data type
     @SerialName("overview")
     val overview: String?,

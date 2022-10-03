@@ -39,7 +39,7 @@ class TopRatedMovieAdapter (private val context: Context, private val movies: Li
         private val posterView = itemView.findViewById<ImageView>(R.id.moviePoster)
         private val titleTextView = itemView.findViewById<TextView>(R.id.movieTitle)
         private val overviewTextView = itemView.findViewById<TextView>(R.id.movieOverview)
-        private val popularityTextView = itemView.findViewById<TextView>(R.id.moviePopularity)
+        private val dateTextView = itemView.findViewById<TextView>(R.id.movieDate)
 
         // assign an onclick listener to the view
         init {
@@ -51,7 +51,7 @@ class TopRatedMovieAdapter (private val context: Context, private val movies: Li
             // dig down into the data model and assign values to the views using dot properties
             titleTextView.text = movie.original_title
             overviewTextView.text = movie.overview
-            popularityTextView.text = movie.popularity.toString()
+            dateTextView.text = movie.release_date
 
             // load the image view of the recycler view with the movie poster url
             Glide.with(context)
