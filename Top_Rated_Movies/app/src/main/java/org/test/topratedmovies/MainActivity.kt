@@ -61,6 +61,51 @@ class MainActivity : AppCompatActivity() {
             val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
             moviesRecyclerView.addItemDecoration(dividerItemDecoration)
         }
+        /**
+         * What's going on here? We are currently...
+         * Using the AsyncHTTPClient to request the data from the search API.
+         * In case the request fails, we'll be logging the error.
+         * If it's successful, we'll need to parse through
+         * the JSON data that we get back to get the articles.
+         */
+        val client = AsyncHttpClient()
+        client.get(TOP_RATED_URL, object : JsonHttpResponseHandler() {
+            override fun onFailure(
+                statusCode: Int,
+                headers: Headers?,
+                response: String?,
+                throwable: Throwable?
+            ) {
+                Log.e(TAG, "Failed to fetch movies: $statusCode")
+            }
 
+            override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
+                Log.i(TAG, "Successfully fetched movies: $json")
+                try {
+                    /**
+                     * How does this work?
+                     * The Serialization library helps us to take the information
+                     * and convert it into Kotlin objects we can work with.
+                     * Decoding is the part where serialization occurs and converts
+                     * the JSON data into models, based on the objects we created in Step 1.
+                     */
+                    // Do something with the returned json (contains article information)
+                    val parsedJson = createJson().decodeFromString(
+                        TopRatedResults.serializer(),
+                        json.jsonObject.toString()
+                    )
+                    /**
+                     * How does this work?
+                     * we need to dig into our model using dot notation to get the movies:
+                     * we'll take each movie and add it to our articles mutable list.
+                     */
+                    parsedJson.results?.let { list -> movies.addAll(list) }
+                    // Reload the screen
+                    movieAdapter.notifyDataSetChanged()
+                } catch (e: JSONException) {
+                    Log.e(TAG, "Exception: $e")
+                }
+            }
+        })
     }
 }
